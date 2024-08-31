@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>piye?</title>
+    <!-- 
+MIT License
+
+Copyright ©2024 | Bangkit I. D.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+-->
+    <style>
+        body {
+            background-color: black;
+            color: #00FF00;
+            font-family: 'Courier New', Courier, monospace;
+            overflow: hidden;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        #matrix {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-color: black;
+        }
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 5vh;
+        }
+        .morse-btn {
+            background-color: #000;
+            color: #00FF00;
+            border: 1px solid #00FF00;
+            padding: 1em 2em;
+            margin: 1vh;
+            cursor: pointer;
+            font-size: 2.5vh;
+            font-family: 'Courier New', Courier, monospace;
+            flex: 1 1 auto;
+        }
+        .morse-btn:hover {
+            background-color: #00FF00;
+            color: black;
+        }
+        #password-container {
+            margin-top: 3vh;
+        }
+        #password-input {
+            background-color: black;
+            color: #00FF00;
+            border: 1px solid #00FF00;
+            padding: 1em;
+            font-size: 2.5vh;
+            width: 50vw;
+            max-width: 300px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="matrix"></canvas>
+        <div id="password-container">
+        <input type="text" id="password-input" placeholder="paswot">
+        	<button id="submit-button" onclick="checkPassword()">mlebu</button>
+    </div>
+    <div class="btn-container">
+        <button class="morse-btn" onclick="playMorse('J')">1</button>
+        <button class="morse-btn" onclick="playMorse('A')">2</button>
+        <button class="morse-btn" onclick="playMorse('N')">3</button>
+        <button class="morse-btn" onclick="playMorse('C')">4</button>
+        <button class="morse-btn" onclick="playMorse('U')">5</button>
+        <button class="morse-btn" onclick="playMorse('K')">6</button>
+        <button class="morse-btn" onclick="playMorse('!')">7</button>
+    </div>
+
+    <script>
+        const morseCode = {
+            'J': '.---',
+            'A': '.-',
+            'N': '-.',
+            'C': '-.-.',
+            'U': '..-',
+            'K': '-.-',
+            '!': '-.-.--'
+        };
+
+        function playMorse(letter) {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const dotDuration = 0.5; 
+            const dashDuration = 1.0; 
+            const gapDuration = 0.2; 
+            let time = audioContext.currentTime + gapDuration;
+            
+            const morseSequence = morseCode[letter].split('');
+            
+            morseSequence.forEach(symbol => {
+                const oscillator = audioContext.createOscillator();
+                oscillator.frequency.setValueAtTime(440, time);
+                oscillator.type = 'sine';
+                const gainNode = audioContext.createGain();
+                gainNode.gain.setValueAtTime(1, time);
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                if (symbol === '.') {
+                    oscillator.start(time);
+                    oscillator.stop(time + dotDuration);
+                    time += dotDuration + gapDuration;
+                } else if (symbol === '-') {
+                    oscillator.start(time);
+                    oscillator.stop(time + dashDuration);
+                    time += dashDuration + gapDuration;
+                } else if (symbol === '!') {
+                    oscillator.start(time);
+                    oscillator.stop(time + dashDuration);
+                    time += dashDuration + gapDuration;
+                }
+            });
+        }
+
+function checkPassword() {
+    const input = document.getElementById('password-input').value;
+    if (input.toLowerCase() === 'jancuk!') {
+        window.location.href = 'https://bid1198.github.io/scriptbitdigisygma.html/';
+    } else {
+        alert('htro jcuv klay prwe\n\npkas zivn dyer vort\nchuv nyik znes trot\nfewn rixy drun zolp\nkrec gidm fuzl dlop');
+    }
+}
+
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const binary = '01001001 00100000 01101100 01101111 01110110 01100101 00100000 01110101 ';
+        const binaryArray = binary.split('');
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+        const drops = Array.from({ length: columns }, () => 1);
+
+        function draw() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#00FF00';
+            ctx.font = `${fontSize}px Courier`;
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = binaryArray[Math.floor(Math.random() * binaryArray.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+
+                drops[i]++;
+            }
+        }
+
+        setInterval(draw, 100);
+    </script>
+</body>
+</html>
