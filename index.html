@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>piye?</title>
-    <!-- 
+    <title>Re-Morse</title>
+        <!-- 
 MIT License
 
 Copyright ©2024 | Bangkit I. D.
@@ -54,6 +54,7 @@ SOFTWARE.
             justify-content: center;
             flex-wrap: wrap;
             margin-top: 5vh;
+            padding: 0 5vw; 
         }
         .morse-btn {
             background-color: #000;
@@ -62,9 +63,12 @@ SOFTWARE.
             padding: 1em 2em;
             margin: 1vh;
             cursor: pointer;
-            font-size: 2.5vh;
+            font-size: 2vh; 
             font-family: 'Courier New', Courier, monospace;
             flex: 1 1 auto;
+            min-width: 20vw; 
+            max-width: 30vw; 
+            
         }
         .morse-btn:hover {
             background-color: #00FF00;
@@ -72,24 +76,42 @@ SOFTWARE.
         }
         #password-container {
             margin-top: 3vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         #password-input {
             background-color: black;
             color: #00FF00;
             border: 1px solid #00FF00;
             padding: 1em;
-            font-size: 2.5vh;
-            width: 50vw;
+            font-size: 2vh;
+            width: 80vw; 
             max-width: 300px;
             text-align: center;
+        }
+        #submit-button {
+            background-color: #000;
+            color: #00FF00;
+            border: 1px solid #00FF00;
+            padding: 1em 2em;
+            margin: 1vh;
+            cursor: pointer;
+            font-size: 2vh;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        #submit-button:hover {
+            background-color: #00FF00;
+            color: black;
         }
     </style>
 </head>
 <body>
     <canvas id="matrix"></canvas>
-        <div id="password-container">
+    <div id="password-container">
         <input type="text" id="password-input" placeholder="paswot">
-        	<button id="submit-button" onclick="checkPassword()">mlebu</button>
+        <button id="submit-button" onclick="checkPassword()">mlebu</button>
     </div>
     <div class="btn-container">
         <button class="morse-btn" onclick="playMorse('J')">1</button>
@@ -114,9 +136,9 @@ SOFTWARE.
 
         function playMorse(letter) {
             const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            const dotDuration = 0.5; 
-            const dashDuration = 1.0; 
-            const gapDuration = 0.2; 
+            const dotDuration = 0.5;
+            const dashDuration = 1.0;
+            const gapDuration = 0.2;
             let time = audioContext.currentTime + gapDuration;
             
             const morseSequence = morseCode[letter].split('');
@@ -147,14 +169,14 @@ SOFTWARE.
             });
         }
 
-function checkPassword() {
-    const input = document.getElementById('password-input').value;
-    if (input.toLowerCase() === 'jancuk!') {
-        window.location.href = 'https://bid1198.github.io/scriptbitdigisygma.html/';
-    } else {
-        alert('htro jcuv klay prwe\n\npkas zivn dyer vort\nchuv nyik znes trot\nfewn rixy drun zolp\nkrec gidm fuzl dlop');
-    }
-}
+        function checkPassword() {
+            const input = document.getElementById('password-input').value;
+            if (input.toLowerCase() === 'jancuk!') {
+                window.location.href = 'https://bid1198.github.io/scriptbitdigisygma.html/';
+            } else {
+                alert('htro jcuv klay prwe\n\npkas zivn dyer vort\nchuv nyik znes trot\nfewn rixy drun zolp\nkrec gidm fuzl dlop');
+            }
+        }
 
         const canvas = document.getElementById('matrix');
         const ctx = canvas.getContext('2d');
